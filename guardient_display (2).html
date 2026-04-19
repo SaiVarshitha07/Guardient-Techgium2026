@@ -68,6 +68,22 @@
       justify-content: center; align-items: center;
       padding: var(--pad-v) var(--pad-h);
       opacity: 0; transition: opacity 0.9s ease; z-index: 2;
+      overflow-y: auto; overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,212,255,0.3) transparent;
+    }
+    .slide::-webkit-scrollbar {
+      width: 6px;
+    }
+    .slide::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: rgba(0,212,255,0.3);
+      border-radius: 3px;
+    }
+    .slide::-webkit-scrollbar-thumb:hover {
+      background: rgba(0,212,255,0.5);
     }
     .slide.active { opacity: 1; }
 
@@ -221,25 +237,33 @@
 
     /* Card color themes */
     .prob-card {
-      border-radius: 16px; padding: 0;
+      border-radius: 24px; padding: 0;
       opacity: 0; transform: translateY(22px) scale(0.97);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
       display: flex; flex-direction: column; gap: 0;
       position: relative; overflow: hidden;
-      min-height: clamp(280px, 35vh, 380px);
+      box-shadow: 0 24px 50px rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      background-clip: padding-box;
     }
     .prob-card::before {
-      content: ''; position: absolute; inset: 0; border-radius: 16px;
-      opacity: 0; transition: opacity 0.3s;
+      content: ''; position: absolute; inset: 0; border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+      opacity: 0; transition: opacity 0.3s ease;
+      pointer-events: none;
     }
-    .prob-card:hover::before { opacity: 1; }
+    .prob-card:hover { transform: translateY(0) scale(1.02); box-shadow: 0 28px 70px rgba(0,0,0,0.22); }
+    .prob-card:hover::before { opacity: 0.16; }
     .prob-card.in { opacity: 1; transform: translateY(0) scale(1); }
+
 
     /* Card 1 — Orange/Amber */
     #pc1 {
       background: linear-gradient(135deg, rgba(255,140,0,0.10) 0%, rgba(255,80,0,0.06) 100%);
       border: 1px solid rgba(255,140,0,0.30);
       box-shadow: 0 0 28px rgba(255,140,0,0.08), inset 0 1px 0 rgba(255,200,100,0.1);
+      height: 160px;
     }
     #pc1::before { background: rgba(255,140,0,0.04); }
     /* Card 2 — Purple/Violet */
@@ -254,6 +278,7 @@
       background: linear-gradient(135deg, rgba(0,180,255,0.10) 0%, rgba(0,80,200,0.06) 100%);
       border: 1px solid rgba(0,180,255,0.30);
       box-shadow: 0 0 28px rgba(0,180,255,0.08), inset 0 1px 0 rgba(100,220,255,0.1);
+      height: 160px;
     }
     #pc3::before { background: rgba(0,180,255,0.04); }
     /* Card 4 — Green/Teal */
@@ -261,16 +286,20 @@
       background: linear-gradient(135deg, rgba(0,220,140,0.10) 0%, rgba(0,160,80,0.06) 100%);
       border: 1px solid rgba(0,220,140,0.30);
       box-shadow: 0 0 28px rgba(0,220,140,0.08), inset 0 1px 0 rgba(100,255,200,0.1);
+      height: 160px;
     }
     #pc4::before { background: rgba(0,220,140,0.04); }
 
     /* Icon picture containers - equal size for all cards */
     .prob-icon-wrap {
-      border-radius: 12px;
+      border-radius: 20px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; position: relative; overflow: hidden;
+      min-width: clamp(180px, 24vw, 260px);
+      max-height: clamp(140px, 18vw, 200px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
     }
-    #pc1 .prob-icon-wrap img {
+    .prob-icon-wrap img {
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -315,8 +344,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(6px, 0.8vh, 10px);
-      padding: clamp(16px, 2.2vh, 24px);
+      gap: clamp(4px, 0.5vh, 8px);
+      padding: clamp(12px, 1.5vh, 18px);
       min-width: 0;
     }
     /* Card 2 layout - image left, content right */
@@ -327,7 +356,7 @@
       padding: 0;
     }
     #pc2 .prob-icon-wrap {
-      background: rgba(180, 100, 255, 0.12);
+      background: transparent;
       border: 2px solid rgba(180, 100, 255, 0.35);
       border-right: none;
       border-radius: 16px 0 0 16px;
@@ -358,8 +387,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(6px, 0.8vh, 10px);
-      padding: clamp(16px, 2.2vh, 24px);
+      gap: clamp(4px, 0.5vh, 8px);
+      padding: clamp(12px, 1.5vh, 18px);
       min-width: 0;
     }
     /* Card 3 layout - image left, content right */
@@ -401,8 +430,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(6px, 0.8vh, 10px);
-      padding: clamp(16px, 2.2vh, 24px);
+      gap: clamp(4px, 0.5vh, 8px);
+      padding: clamp(12px, 1.5vh, 18px);
       min-width: 0;
     }
     /* Card 4 layout - image left, content right */
@@ -426,7 +455,7 @@
       height: 100%;
       object-fit: contain;
       padding: 0;
-      filter: brightness(1.1) contrast(1.05);
+      filter: brightness(1.3) contrast(1.35) saturate(1.1);
       animation: imageFloat4 4s ease-in-out infinite;
     }
     @keyframes imageFloat4 {
@@ -444,8 +473,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(6px, 0.8vh, 10px);
-      padding: clamp(16px, 2.2vh, 24px);
+      gap: clamp(4px, 0.5vh, 8px);
+      padding: clamp(12px, 1.5vh, 18px);
       min-width: 0;
     }
 
@@ -466,7 +495,7 @@
     @keyframes badgePulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.15);opacity:0.7} }
 
     .prob-h {
-      font-size: clamp(18px, 2.4vmin, 30px); font-weight: 700; margin-bottom: 5px; line-height: 1.25;
+      font-size: clamp(18px, 2.4vmin, 30px); font-weight: 700; margin-bottom: 3px; line-height: 1.25;
     }
     #pc1 .prob-h { color: #ffaa44; }
     #pc2 .prob-h { color: #c080ff; }
@@ -482,7 +511,7 @@
     #pc3 .prob-sub { color: rgba(0,180,255,0.55); }
     #pc4 .prob-sub { color: rgba(0,220,140,0.55); }
 
-    .prob-p { font-size: clamp(14px, 1.7vmin, 22px); color: rgba(255,255,255,0.42); font-weight: 300; line-height: 1.55; }
+    .prob-p { font-size: clamp(16px, 1.9vmin, 24px); color: rgba(255,255,255,0.42); font-weight: 300; line-height: 1.55; }
     .prob-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 9px; }
     .prob-tag {
       font-size: clamp(11px, 1.2vmin, 16px); padding: 3px 9px; border-radius: 4px;
@@ -774,7 +803,7 @@
     /* ── Center divider column ── */
     .cmp-center-col {
       display: flex; flex-direction: column; align-items: center;
-      padding-top: clamp(54px,8vh,90px);
+      margin-top: clamp(38px,5vh,56px);
       gap: 0;
     }
     .cmp-cat-label {
@@ -782,9 +811,8 @@
       width: 100%; text-align: center;
       font-size: clamp(11px,1.2vmin,16px); font-weight:700; letter-spacing:1.5px;
       text-transform:uppercase; color:rgba(255,255,255,0.22);
-      padding: clamp(11px,1.8vh,22px) 4px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      line-height: 1.3;
+      height: clamp(45px,6vh,72px);
+      padding: clamp(9px,1.5vh,18px) clamp(10px,1.5vw,18px);
     }
     .cmp-cat-label:first-child { border-top: none; }
 
@@ -814,7 +842,7 @@
       display: flex; align-items: center; gap: clamp(8px,1.2vw,14px);
       padding: clamp(9px,1.5vh,18px) clamp(10px,1.5vw,18px);
       border-top: 1px solid rgba(255,255,255,0.05);
-      min-height: 0;
+      height: clamp(45px,6vh,72px);
       opacity: 0; transform: translateX(-12px);
       transition: opacity 0.45s ease, transform 0.45s ease;
     }
@@ -835,10 +863,12 @@
     }
     .cmp-cell-ico.edr-ico {
       background: rgba(255,51,102,0.10); border: 1px solid rgba(255,51,102,0.22);
+      animation: iconShake 6s ease-in-out infinite;
     }
     .cmp-cell-ico.g-ico {
       background: rgba(0,255,136,0.10); border: 1px solid rgba(0,255,136,0.22);
       box-shadow: 0 0 10px rgba(0,255,136,0.08);
+      animation: iconGlow 4s ease-in-out infinite;
     }
 
     /* Status badge overlay on icon */
@@ -891,12 +921,17 @@
       display:flex; align-items:center; justify-content:center;
       font-family:'Orbitron',monospace; font-size:clamp(20px,2.5vmin,32px);
       font-weight:900; color:rgba(255,255,255,0.5);
-      flex-shrink:0; align-self:center; margin: auto 0;
+      flex-shrink:0; align-self:center;
       box-shadow: 0 0 20px rgba(0,212,255,0.15);
+      margin-bottom: 4px;
     }
 
     @keyframes cellIn { from{opacity:0;transform:translateX(-12px)} to{opacity:1;transform:translateX(0)} }
     @keyframes cellInR { from{opacity:0;transform:translateX(12px)} to{opacity:1;transform:translateX(0)} }
+
+    /* Icon enhancements */
+    @keyframes iconGlow { 0%,100%{filter: drop-shadow(0 0 2px rgba(0,255,136,0.3))} 50%{filter: drop-shadow(0 0 6px rgba(0,255,136,0.6))} }
+    @keyframes iconShake { 0%,100%{transform: translateX(0)} 25%{transform: translateX(-1px)} 75%{transform: translateX(1px)} }
 
     /* ════════════════ SLIDE 9 ════════════════ */
     #s9 { text-align: center; }
@@ -975,6 +1010,196 @@
       .cmp-table th, .cmp-table td {
         padding: clamp(6px, 1.1vh, 11px) clamp(8px, 1.4vw, 16px);
       }
+    }
+
+    /* ════════════════ TABLET (768px - 1024px) ════════════════ */
+    @media (max-width: 1024px) {
+      :root {
+        --pad-h: clamp(16px, 4vw, 40px);
+        --pad-v: clamp(20px, 3vh, 50px);
+      }
+      
+      /* Ensure content visibility */
+      .slide {
+        padding-bottom: 45px;
+      }
+      
+      /* Slide 3: 2x2 grid on tablet */
+      .prob-grid { grid-template-columns: 1fr 1fr; gap: var(--gap-sm); }
+      
+      /* Slide 8 comparison: reduce icon sizes */
+      .cmp-col-hdr { padding: clamp(10px, 1.5vh, 18px) clamp(8px, 1.2vw, 14px); }
+      .cmp-cell { padding: clamp(8px, 1.2vh, 14px); }
+    }
+
+    /* ════════════════ MOBILE LANDSCAPE (481px - 768px) ════════════════ */
+    @media (max-width: 768px) {
+      :root {
+        --pad-h: clamp(12px, 3vw, 24px);
+        --pad-v: clamp(16px, 2.5vh, 36px);
+        --gap-lg: clamp(12px, 2vmin, 24px);
+        --gap-md: clamp(8px, 1.5vmin, 16px);
+      }
+      
+      /* Allow scrolling if content overflows */
+      .slide {
+        justify-content: flex-start;
+        padding-bottom: 50px;
+      }
+      
+      /* All grids: single column */
+      .prob-grid { grid-template-columns: 1fr; }
+      .resp-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      
+      /* Slide 3 cards: stack vertically */
+      .prob-card {
+        flex-direction: column !important;
+        min-height: auto;
+      }
+      .prob-card .prob-icon-wrap {
+        width: clamp(100px, 30vw, 160px) !important;
+        height: clamp(100px, 30vw, 160px) !important;
+        border-radius: 12px !important;
+        border-right: 2px solid rgba(0,212,255,0.35) !important;
+        border-bottom: none !important;
+        margin: clamp(12px, 1.5vh, 16px) !important;
+      }
+      
+      /* Slide 5: stack vertically */
+      .pipeline { flex-direction: column; }
+      .src-col {
+        flex-direction: row; flex-wrap: wrap;
+        justify-content: center; margin-right: 0; margin-bottom: var(--gap-md);
+      }
+      .src-item { max-width: 48vw; }
+      .fat-arrow { transform: rotate(90deg); margin: var(--gap-sm) 0; }
+      .stages { flex-direction: column; }
+      .s-arrow { transform: rotate(90deg); }
+      
+      /* Slide 6: stack vertically */
+      .ts-body { flex-direction: column; }
+      .ts-info { min-width: unset; width: 100%; }
+      
+      /* Slide 8: comparison table adjustments */
+      .cmp-table { font-size: clamp(11px, 1.5vmin, 14px); }
+      .cmp-col-hdr { padding: clamp(8px, 1.2vh, 14px) clamp(6px, 1vw, 12px); }
+      .cmp-hdr-title { font-size: clamp(14px, 2vmin, 20px) !important; }
+      .cmp-cell-main { font-size: clamp(11px, 1.4vmin, 15px); }
+      
+      /* Navigation arrows */
+      .nav-arrow { width: 40px; height: 60px; }
+    }
+
+    /* ════════════════ MOBILE PORTRAIT (up to 480px) ════════════════ */
+    @media (max-width: 480px) {
+      :root {
+        --pad-h: 12px;
+        --pad-v: 16px;
+        --gap-lg: 12px;
+        --gap-md: 8px;
+        --gap-sm: 6px;
+      }
+      
+      /* Ensure slides are scrollable */
+      .slide {
+        justify-content: flex-start;
+        padding-top: 20px;
+        padding-bottom: 60px;
+      }
+      
+      /* Typography adjustments */
+      .title-hero { font-size: clamp(36px, 10vw, 60px); }
+      .title-xl { font-size: clamp(32px, 9vw, 50px); }
+      .title-lg { font-size: clamp(24px, 6vw, 36px); }
+      .title-md { font-size: clamp(20px, 5vw, 30px); }
+      .big-q { font-size: clamp(20px, 5.5vw, 32px); }
+      .eyebrow { font-size: clamp(12px, 3vw, 16px); }
+      
+      /* Slide 2: device row */
+      .device-row { gap: 12px; flex-wrap: wrap; }
+      .device-item { min-width: 120px; flex: 1; }
+      .device-icon { font-size: clamp(28px, 8vw, 48px); }
+      .device-label { font-size: clamp(10px, 2.5vw, 14px); }
+      .device-sub { font-size: clamp(9px, 2.2vw, 12px); max-width: 90px; }
+      .badge { font-size: clamp(9px, 2.2vw, 12px); padding: 3px 8px; }
+      
+      /* Slide 3: cards */
+      .prob-grid { gap: 12px; }
+      .prob-card { padding: 0; min-height: auto; }
+      .prob-card .prob-icon-wrap {
+        width: 120px !important;
+        height: 120px !important;
+        margin: 12px !important;
+      }
+      .prob-h { font-size: clamp(16px, 4vw, 22px); }
+      .prob-sub { font-size: clamp(11px, 2.8vw, 14px); }
+      .prob-tag { font-size: clamp(9px, 2.2vw, 12px); padding: 2px 6px; }
+      
+      /* Slide 4: pillars */
+      .pillars { flex-direction: column; gap: 12px; }
+      .pillar { min-width: unset; width: 100%; padding: 16px; }
+      
+      /* Slide 5: pipeline */
+      .src-item { max-width: 100%; }
+      .stage { padding: 12px; }
+      
+      /* Slide 8: comparison table */
+      .cmp-table { 
+        grid-template-columns: 1fr !important;
+        gap: 8px;
+      }
+      .cmp-col-hdr { 
+        flex-direction: row !important;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .cmp-center-col { display: none; }
+      .cmp-cell { 
+        margin-bottom: 4px;
+        padding: 8px;
+      }
+      .cmp-cell-ico { width: 32px; height: 32px; }
+      .cmp-cell-main { font-size: clamp(12px, 3vw, 16px); }
+      
+      /* Slide 10: closing */
+      .closing-logo { font-size: clamp(40px, 12vw, 60px); }
+      .closing-tagline { font-size: clamp(14px, 3.5vw, 20px); letter-spacing: 2px; }
+      .closing-quote { font-size: clamp(12px, 3vw, 16px); }
+      .team-box { flex-direction: column; }
+      .team-cell { border-right: none; border-bottom: 1px solid rgba(0,212,255,0.15); }
+      .team-cell:last-child { border-bottom: none; }
+      
+      /* Navigation */
+      .nav-arrow { width: 36px; height: 50px; font-size: 18px; }
+      #dots { bottom: 8px; }
+      .dot { width: 4px; height: 4px; }
+    }
+
+    /* ════════════════ LARGE SCREENS (1920px+) ════════════════ */
+    @media (min-width: 1920px) {
+      :root {
+        --pad-h: 100px;
+        --pad-v: 70px;
+      }
+    }
+
+    /* ════════════════ SMALL MOBILE DEVICES (320px) ════════════════ */
+    @media (max-width: 320px) {
+      :root {
+        --pad-h: 8px;
+        --pad-v: 12px;
+      }
+      
+      .title-hero { font-size: 32px; }
+      .big-q { font-size: 18px; }
+      .device-row { gap: 8px; }
+      .device-icon { font-size: 24px; }
+      .device-label { font-size: 9px; }
+      .device-sub { display: none; }
+      .badge { font-size: 8px; padding: 2px 6px; }
     }
   </style>
 </head>
@@ -1056,22 +1281,9 @@
         </div>
         <div class="prob-content">
           <div class="prob-h">Legacy &amp; Restricted Systems</div>
-          <div class="prob-sub">No runtime · No RAM · FDA Blocked</div>
-          <div class="prob-chain">
-            <div class="chain-node chain-ok">XP</div>
-            <div class="chain-line"></div>
-            <div class="chain-node chain-ok">PLC</div>
-            <div class="chain-line dashed"></div>
-            <div class="chain-node chain-edr">EDR</div>
-            <div class="chain-line dashed"></div>
-            <div class="chain-node chain-x">✕</div>
-          </div>
-          <div class="prob-tags">
-            <span class="prob-tag">Windows XP/7</span>
-            <span class="prob-tag">PLCs</span>
-            <span class="prob-tag">Medical Devices</span>
-            <span class="prob-tag">FDA / IEC 62443</span>
-          </div>
+          <div class="prob-p">• No agent support</div>
+          <div class="prob-p">• Resource limits</div>
+          <div class="prob-p">• Compliance restrictions</div>
         </div>
       </div>
 
@@ -1083,19 +1295,9 @@
         </div>
         <div class="prob-content">
           <div class="prob-h">High Operational Overhead</div>
-          <div class="prob-sub">Full-time burden · Version hell</div>
-          <div class="prob-bars">
-            <div class="prob-bar-item"><div class="prob-bar-fill b1"></div><div class="prob-bar-lbl">Kernel</div></div>
-            <div class="prob-bar-item"><div class="prob-bar-fill b2"></div><div class="prob-bar-lbl">OS conf.</div></div>
-            <div class="prob-bar-item"><div class="prob-bar-fill b3"></div><div class="prob-bar-lbl">Crashes</div></div>
-            <div class="prob-bar-item"><div class="prob-bar-fill b4"></div><div class="prob-bar-lbl">Rollout</div></div>
-          </div>
-          <div class="prob-tags">
-            <span class="prob-tag">Kernel Conflicts</span>
-            <span class="prob-tag">Crash Loops</span>
-            <span class="prob-tag">Version Matrix</span>
-            <span class="prob-tag">Rollout Debt</span>
-          </div>
+          <div class="prob-p">• Frequent updates</div>
+          <div class="prob-p">• Compatibility issues</div>
+          <div class="prob-p">• Performance impact</div>
         </div>
       </div>
 
@@ -1107,20 +1309,9 @@
         </div>
         <div class="prob-content">
           <div class="prob-h">Air-Gapped &amp; OOB Blind Spots</div>
-          <div class="prob-sub">Zero internet · No network connection</div>
-          <div class="prob-oob">
-            <div class="oob-chip untapped"><span class="oob-name">Intel AMT</span><span class="oob-state">Untapped</span></div>
-            <div class="oob-chip ignored"> <span class="oob-name">BMC</span>     <span class="oob-state">Ignored</span></div>
-            <div class="oob-chip silent">  <span class="oob-name">iDRAC</span>   <span class="oob-state">Silent</span></div>
-            <div class="oob-chip blind">   <span class="oob-name">IPMI</span>    <span class="oob-state">Blind</span></div>
-          </div>
-          <div class="prob-tags">
-            <span class="prob-tag">Intel AMT</span>
-            <span class="prob-tag">BMC</span>
-            <span class="prob-tag">IPMI</span>
-            <span class="prob-tag">iDRAC</span>
-            <span class="prob-tag">Always-On</span>
-          </div>
+          <div class="prob-p">• No connectivity</div>
+          <div class="prob-p">• No data visibility</div>
+          <div class="prob-p">• Hidden system signals</div>
         </div>
       </div>
 
@@ -1128,26 +1319,13 @@
       <div class="prob-card" id="pc4">
         <div class="prob-badge">✕</div>
         <div class="prob-icon-wrap">
-          <img src="HybridGaps.png" alt="Hybrid Infrastructure Gaps">
+          <img src="Hybrid.png" alt="Hybrid Infrastructure Gaps">
         </div>
         <div class="prob-content">
           <div class="prob-h">Hybrid Infrastructure Gaps</div>
-          <div class="prob-sub">4–7 consoles · No unified telemetry</div>
-          <div class="prob-net">
-            <div class="net-node net-cloud">Cloud VMs</div>
-            <div class="net-div">/</div>
-            <div class="net-node net-onp">On-Prem</div>
-            <div class="net-div">/</div>
-            <div class="net-node net-ot">OT/ICS</div>
-            <div class="net-div">/</div>
-            <div class="net-node net-air">Air-gap</div>
-          </div>
-          <div class="prob-tags">
-            <span class="prob-tag">Cloud + On-Prem</span>
-            <span class="prob-tag">IT + OT Convergence</span>
-            <span class="prob-tag">4-7 Tools</span>
-            <span class="prob-tag">No Single Pane</span>
-          </div>
+          <div class="prob-p">• Missing logs</div>
+          <div class="prob-p">• Partial insights</div>
+          <div class="prob-p">• Delayed detection</div>
         </div>
       </div>
 
@@ -1495,14 +1673,14 @@
       <!-- ══ CENTER DIVIDER ══ -->
       <div class="cmp-center-col">
         <div class="vs-badge">VS</div>
-        <div class="cmp-cat-label">Agents</div>
-        <div class="cmp-cat-label">Coverage</div>
-        <div class="cmp-cat-label">Air-Gap</div>
-        <div class="cmp-cat-label">OS Layer</div>
-        <div class="cmp-cat-label">OT / ICS</div>
-        <div class="cmp-cat-label">Response</div>
-        <div class="cmp-cat-label">Deploy</div>
-        <div class="cmp-cat-label">Risk</div>
+        <div class="cmp-cat-label">AGENTS</div>
+        <div class="cmp-cat-label">COVERAGE</div>
+        <div class="cmp-cat-label">AIR-GAP</div>
+        <div class="cmp-cat-label">OS LAYER</div>
+        <div class="cmp-cat-label">OT/ICS</div>
+        <div class="cmp-cat-label">RESPONSE</div>
+        <div class="cmp-cat-label">DEPLOY</div>
+        <div class="cmp-cat-label">RISK</div>
       </div>
 
       <!-- ══ GUARDIENT COLUMN ══ -->
