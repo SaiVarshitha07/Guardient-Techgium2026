@@ -14,6 +14,7 @@
       --green: #00ff88;
       --red: #ff3366;
       --gold: #ffcc00;
+      --purple: #bf5af2;
 
       --pad-h: clamp(22px, 5vw, 100px);
       --pad-v: clamp(28px, 4vh, 70px);
@@ -125,11 +126,11 @@
       opacity: 1;
     }
     
-    .ds-item, .flow-v-step, .v-arrow, .arch-arrow, .trust-score-engine, .decision-engine, .v-arrow-up, .action-item {
+    .ds-item, .flow-v-step, .v-arrow, .arch-arrow, .trust-score-engine, .decision-engine, .v-arrow-up, .action-item, .policy-risk-rules {
       opacity: 0;
       transition: opacity 0.4s ease, transform 0.4s ease;
     }
-    .ds-item.in, .flow-v-step.in, .v-arrow.in, .arch-arrow.in, .trust-score-engine.in, .decision-engine.in, .v-arrow-up.in, .action-item.in {
+    .ds-item.in, .flow-v-step.in, .v-arrow.in, .arch-arrow.in, .trust-score-engine.in, .decision-engine.in, .v-arrow-up.in, .action-item.in, .policy-risk-rules.in {
       opacity: 1;
     }
 
@@ -762,12 +763,12 @@
     .main-arch {
       display: grid;
       grid-template-columns: 
-        minmax(0,1.5fr)        /* data sources */
-        clamp(60px,8vw,160px)  /* arrow 1 */
-        minmax(0,1.25fr)       /* pipeline stack */
-        clamp(60px,8vw,160px)  /* arrow 2 */
-        minmax(0,1.8fr)        /* gauge + decision stacked */
-        clamp(60px,8vw,160px)  /* arrow 4 */
+        minmax(0,1.4fr)        /* data sources */
+        clamp(30px,4vw,60px)   /* arrow 1 */
+        minmax(0,1.2fr)        /* pipeline stack */
+        clamp(30px,4vw,60px)   /* arrow 2 */
+        minmax(0,1.6fr)        /* gauge + decision stacked */
+        clamp(30px,4vw,60px)   /* arrow 3 */
         minmax(0,1.4fr);       /* actions */
       gap: 0;
       align-items: stretch;
@@ -801,9 +802,9 @@
     }
     
     /* Perfect alignments using flex-start/end and margins */
-    #cp1 { align-self: flex-start; margin-top: clamp(25px, 5vh, 50px); }
-    #cp2 { align-self: flex-end; margin-bottom: clamp(50px, 10vh, 90px); }
-    #cp4 { align-self: flex-start; margin-top: clamp(25px, 5vh, 50px); }
+    #cp1 { align-self: flex-start; margin-top: 15px; }
+    #cp2 { align-self: flex-start; margin-top: 15px; }
+    #cp4 { align-self: flex-start; margin-top: 15px; }
 
     /* ═══════════════════════════════════
        LEFT PANEL — Data Sources
@@ -1109,8 +1110,40 @@
     .ai-icon-wrap svg { width: 80%; height: 80%; }
     .ai-lbl { font-size: clamp(14px,1.7vmin,22px); font-weight: 700; color: rgba(255,255,255,0.95); line-height:1.25; }
 
+    
+    /* Module Headers */
+    .mod-header {
+      font-size: clamp(12px, 1.5vmin, 16px);
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: clamp(12px, 1.8vh, 22px);
+      border-bottom: 2.5px solid rgba(255,255,255,0.15);
+      padding-bottom: 8px;
+      line-height: 1.2;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .mh-cyan { color: #00d4ff; border-bottom-color: rgba(0,212,255,0.3); }
+    .mh-gold { color: #ffd700; border-bottom-color: rgba(255,215,0,0.3); }
+    .mh-purple { color: var(--purple); border-bottom-color: rgba(191,90,242,0.3); }
+    .mh-green { color: #00ff64; border-bottom-color: rgba(0,255,100,0.3); }
+
+    
+    /* Staggered column entry */
+    .data-sources, .pipeline-stack, .policy-risk-rules, .gauge-decision-stack, .actions-list {
+      opacity: 0; transform: translateY(15px); transition: all 0.6s ease;
+    }
+    .data-sources.in, .pipeline-stack.in, .policy-risk-rules.in, .gauge-decision-stack.in, .actions-list.in {
+      opacity: 1; transform: translateY(0);
+    }
+
     /* ── Connector arrows ── */
-    .connector { display: none; }
 
     /* ════════════════ SLIDE 6 ════════════════ */
     #s6 { text-align: center; }
@@ -1856,6 +1889,7 @@
 
         <!-- ══ Col 1: Data Sources (cyan border panel) ══ -->
         <div class="data-sources">
+            <div class="mod-header mh-cyan">1. Data Collection</div>
 
           <!-- Network Traffic — bold router + wifi arcs -->
           <div class="ds-item" id="ds1">
@@ -1909,6 +1943,7 @@
 
         <!-- ══ Col 3: Pipeline Stack (gold boxes) ══ -->
         <div class="pipeline-stack">
+            <div class="mod-header mh-gold">2. PREPROCESSING</div>
           <div class="flow-v-step" id="ps1">
             <span class="fvs-ico"><img src="Normalize.png" alt="Normalize"></span>
             <span class="fvs-lbl">Normalize<br>&amp; Enrich</span>
@@ -1933,8 +1968,11 @@
           </svg>
         </div>
 
-        <!-- ══ Col 5: Gauge + Decision stacked (matching reference image flow) ══ -->
+
+
+        <!-- ══ Col 7: Gauge + Decision stacked ══ -->
         <div class="gauge-decision-stack">
+          <div class="mod-header mh-cyan" style="color:var(--cyan) !important;">3. TrustScore Engine</div>
 
           <!-- Decision Engine (top) -->
           <div class="decision-engine" id="de">
@@ -1973,7 +2011,6 @@
               <div class="gauge-needle" id="gn"></div>
               <div class="gauge-hub"></div>
             </div>
-            <div class="gauge-label">Trust Score Engine</div>
           </div>
 
         </div>
@@ -1986,8 +2023,9 @@
           </svg>
         </div>
 
-        <!-- ══ Col 7: Actions (green border panel) ══ -->
+        <!-- ══ Col 8: Actions (green border panel) ══ -->
         <div class="actions-list">
+            <div class="mod-header mh-green">4. Response Engine</div>
 
           <!-- SOC Notified — bold bell -->
           <div class="action-item" id="ai1">
@@ -2519,7 +2557,7 @@
     { id:'s2',  dur: 9000,  enter: null },
     { id:'s3',  dur:11000,  enter: enterProblem },
     { id:'s4',  dur: 7000,  enter: null },
-    { id:'s5',  dur:12000,  enter: enterPipeline },
+    { id:'s5',  dur:14000,  enter: enterPipeline },
     { id:'s6',  dur:18000,  enter: enterTrust },
     { id:'s7',  dur:11000,  enter: enterResponse },
     { id:'s8',  dur: 12000, enter: enterComparison },
@@ -2538,11 +2576,13 @@
 
   let cur = 0;
   let timer = null;
+  let tsIntvl = null;
   let paused = false;
   let slideStartTime = 0;
   let pausedRemaining = 0;
 
   const els      = SLIDES.map(s => document.getElementById(s.id));
+  const CIRC     = 608.7; // Circumference for gauge animation
   const dots     = document.getElementById('dots');
   const bar      = document.getElementById('progress-bar');
   const hint     = document.getElementById('fullscreen-hint');
@@ -2692,6 +2732,12 @@
     const title = document.querySelector('#s5 .title-lg');
     const container = document.querySelector('#s5 .arch-container');
 
+    const m1 = document.querySelector('.data-sources');
+    const m2 = document.querySelector('.pipeline-stack');
+    const m3 = document.querySelector('.policy-risk-rules');
+    const m4 = document.querySelector('.gauge-decision-stack');
+    const m5 = document.querySelector('.actions-list');
+
     // 1. "How Guardient works" appears in center
     setTimeout(() => { if(intro1) intro1.classList.add('in'); }, 100);
     
@@ -2703,40 +2749,44 @@
       if(container) container.classList.add('in');
     }, 1800);
 
-    // 3. Data Sources — stagger in from left
+    // 3. Module 1: Data Collection appears
+    setTimeout(() => { if(m1) m1.classList.add('in'); }, 2200);
     ['ds1','ds2','ds3','ds4','ds5'].forEach((id,i) =>
-      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 2200));
+      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 2600));
     
     // DS → Pipeline Arrow
-    setTimeout(() => { const el = document.getElementById('cp1'); if(el) el.classList.add('in'); }, 3000);
+    setTimeout(() => { const el = document.getElementById('cp1'); if(el) el.classList.add('in'); }, 3500);
 
-    // 5. Pipeline Steps — gold boxes drop in
+    // 4. Module 2: Preprocessing appears
+    setTimeout(() => { if(m2) m2.classList.add('in'); }, 4000);
     ['ps1','pa1','ps2','pa2','ps3'].forEach((id,i) =>
-      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*200 + 3200));
+      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*200 + 4400));
     
-    // Pipeline → Trust Arrow
-    setTimeout(() => { const el = document.getElementById('cp2'); if(el) el.classList.add('in'); }, 4400);
 
-    // 6. Trust Score Engine gauge rises
+
+
+    // 5. Module 3: Trust Score Engine appears
+    setTimeout(() => { if(m4) m4.classList.add('in'); }, 5600);
     setTimeout(() => {
       const tse = document.getElementById('tse');
       if(tse) tse.classList.add('in');
       const gn = document.getElementById('gn');
       if(gn) gn.style.transform = 'translateX(-50%) rotate(45deg)';
-    }, 4600);
+    }, 6000);
     
-    // 7. Trust → Decision Arrow (vertical)
-    setTimeout(() => { const el = document.getElementById('cp3'); if(el) el.classList.add('in'); }, 5200);
+    // Trust → Decision Arrow (vertical)
+    setTimeout(() => { const el = document.getElementById('cp3'); if(el) el.classList.add('in'); }, 6500);
 
-    // 8. Decision Engine
-    setTimeout(() => { const el = document.getElementById('de'); if(el) el.classList.add('in'); }, 5500);
+    // Decision Engine
+    setTimeout(() => { const el = document.getElementById('de'); if(el) el.classList.add('in'); }, 7000);
 
     // Decision → Actions Arrow
-    setTimeout(() => { const el = document.getElementById('cp4'); if(el) el.classList.add('in'); }, 5900);
+    setTimeout(() => { const el = document.getElementById('cp4'); if(el) el.classList.add('in'); }, 7500);
 
-    // 9. Action items — stagger in from right
+    // 6. Module 4: Response Engine appears
+    setTimeout(() => { if(m5) m5.classList.add('in'); }, 8000);
     ['ai1','ai2','ai3','ai4','ai5'].forEach((id,i) =>
-      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 6100));
+      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 8400));
   }
   function resetPipeline() {
     ['s5-intro1'].forEach(id => {
@@ -2746,9 +2796,20 @@
     const eyebrow = document.querySelector('#s5 .eyebrow');
     const title = document.querySelector('#s5 .title-lg');
     const container = document.querySelector('#s5 .arch-container');
+
+    const m1 = document.querySelector('.data-sources');
+    const m2 = document.querySelector('.pipeline-stack');
+    const m3 = document.querySelector('.policy-risk-rules');
+    const m4 = document.querySelector('.gauge-decision-stack');
+    const m5 = document.querySelector('.actions-list');
+
     if(eyebrow) eyebrow.classList.remove('in');
     if(title) title.classList.remove('in');
     if(container) container.classList.remove('in');
+    if(m1) m1.classList.remove('in');
+    if(m2) m2.classList.remove('in');
+    if(m4) m4.classList.remove('in');
+    if(m5) m5.classList.remove('in');
 
     ['ds1','ds2','ds3','ds4','ds5','ps1','pa1','ps2','pa2','ps3','tse','de','ai1','ai2','ai3','ai4','ai5','cp1','cp2','cp3','cp4']
       .forEach(id => {
@@ -2758,9 +2819,6 @@
     const gn = document.getElementById('gn');
     if (gn) gn.style.transform = 'translateX(-50%) rotate(-60deg)';
   }
-
-  let tsIntvl = null;
-  const CIRC = 2 * Math.PI * 97;
 
   function enterTrust() {
     clearInterval(tsIntvl);
