@@ -2937,20 +2937,22 @@
       if(tse) tse.classList.add('in');
       const gn = document.getElementById('gn');
       if(gn) gn.style.transform = 'translateX(-50%) rotate(45deg)';
-    }, 6200);
+    }, 6300);
 
-    // Then decision
-    setTimeout(() => { const el = document.getElementById('cp3'); if(el) el.classList.add('in'); }, 6700);
-    setTimeout(() => { const el = document.getElementById('de'); if(el) el.classList.add('in'); }, 7100);
+    // Then policy element
+    setTimeout(() => { if(m3) m3.classList.add('in'); }, 6800);
 
-    // Then policy
-    setTimeout(() => { if(m3) m3.classList.add('in'); }, 7600);
+    // Then decision element (with its upward arrow)
+    setTimeout(() => { const el = document.getElementById('cp3'); if(el) el.classList.add('in'); }, 7300);
+    setTimeout(() => { const el = document.getElementById('de'); if(el) el.classList.add('in'); }, 7600);
 
-    // Then right box
-    setTimeout(() => { ['cp4','cp5'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.add('in'); }); }, 8050);
-    setTimeout(() => { if(m5) m5.classList.add('in'); }, 8450);
+    // Then arrows between sections
+    setTimeout(() => { ['cp4','cp5'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.add('in'); }); }, 8100);
+
+    // Then response section
+    setTimeout(() => { if(m5) m5.classList.add('in'); }, 8600);
     ['ai1','ai2','ai3','ai4','ai5'].forEach((id,i) =>
-      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 8850));
+      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 9000));
   }
   function resetPipeline() {
     ['s5-intro1'].forEach(id => {
