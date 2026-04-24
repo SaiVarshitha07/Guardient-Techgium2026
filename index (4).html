@@ -225,7 +225,7 @@
     #s2 {
       text-align: center;
       background: radial-gradient(ellipse at 50% 40%, rgba(255,51,102,0.07) 0%, transparent 65%);
-      justify-content: flex-start;
+      justify-content: space-between;
       padding: clamp(10px,1.6vh,24px) clamp(16px,3vw,60px) clamp(8px,1.2vh,18px);
       overflow: hidden;
     }
@@ -741,8 +741,8 @@
     /* ════════════════ SLIDE 5 ════════════════ */
     #s5 { 
       text-align: center; 
-      padding: clamp(10px,1.6vh,20px) clamp(16px,3vw,60px) clamp(6px,1vh,14px);
-      justify-content: flex-start;
+      padding: clamp(8px,1.1vh,14px) clamp(16px,3vw,60px) clamp(8px,1.1vh,14px);
+      justify-content: center;
       align-items: center;
       overflow: hidden;
       background: radial-gradient(ellipse at 50% 60%, rgba(0,100,180,0.06) 0%, transparent 70%);
@@ -753,9 +753,11 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 1280px;
+      max-width: 1360px;
       flex: 1;
-      margin-top: clamp(4px,0.7vh,10px);
+      justify-content: center;
+      margin-top: clamp(8px, 0.9vh, 14px);
+      padding-bottom: clamp(10px, 1.2vh, 18px);
       min-height: 0;
     }
 
@@ -770,11 +772,13 @@
         minmax(0,1.6fr)        /* gauge + decision stacked */
         clamp(30px,4vw,60px)   /* arrow 3 */
         minmax(0,1.4fr);       /* actions */
-      gap: 0;
+      column-gap: clamp(14px, 1.6vw, 24px);
+      row-gap: 0;
       align-items: stretch;
       width: 100%;
       flex: 1;
       min-height: 0;
+      max-height: 100%;
     }
 
     /* ── Gauge + Decision stacked (Decision on top, gauge below) ── */
@@ -784,7 +788,9 @@
       align-items: center;
       align-self: stretch;
       justify-content: space-between;
-      padding: clamp(15px, 2vh, 30px) 0;
+      gap: 0;
+      padding: clamp(10px, 1.2vh, 18px) 0 clamp(4px, 0.5vh, 8px);
+      height: 100%;
     }
 
     /* ── Connector arrows — thick solid white ── */
@@ -802,9 +808,10 @@
     }
     
     /* Perfect alignments using flex-start/end and margins */
-    #cp1 { align-self: flex-start; margin-top: 15px; }
-    #cp2 { align-self: flex-start; margin-top: 15px; }
-    #cp4 { align-self: flex-start; margin-top: 15px; }
+    #cp1 { align-self: start; justify-self: start; margin-top: 15px; width: clamp(50px, 6vw, 84px); }
+    #cp2 { align-self: flex-end; justify-self: center; margin-bottom: clamp(50px, 8vh, 100px); margin-top: 0; width: clamp(100px, 14vw, 170px); transform: translateX(clamp(-15px, -2.5vw, -35px)); }
+    #cp4 { grid-column: 6; grid-row: 1; align-self: center; justify-self: end; margin-top: clamp(40px, 4vh, 60px); width: clamp(100px, 14vw, 170px); }
+    #cp5 { grid-column: 6; grid-row: 1; align-self: start; justify-self: end; margin-top: 15px; width: clamp(50px, 6vw, 84px); }
 
     /* ═══════════════════════════════════
        LEFT PANEL — Data Sources
@@ -815,16 +822,21 @@
       flex-direction: column;
       justify-content: space-between;
       align-self: stretch;
+      gap: clamp(4px, 0.5vh, 8px);
       background: rgba(0,40,80,0.35);
-      padding: clamp(15px, 2vh, 30px) clamp(10px,1.2vw,20px);
+      width: 100%;
+      height: 100%;
+      padding: clamp(14px, 1.6vh, 22px) clamp(8px,0.8vw,14px) clamp(14px, 1.6vh, 22px) clamp(10px,1vw,18px);
       border: 2.5px solid rgba(0,180,255,0.65);
       border-radius: 14px;
+      overflow: hidden;
       box-shadow: 0 0 32px rgba(0,180,255,0.15), inset 0 0 20px rgba(0,100,200,0.06);
     }
     .ds-item {
       display: flex;
       align-items: center;
       gap: clamp(10px,1.2vw,18px);
+      width: 100%;
       opacity: 0; transform: translateX(-14px);
       transition: all 0.45s ease;
     }
@@ -849,11 +861,14 @@
       50% { transform: translateY(-5px); filter: drop-shadow(0 5px 18px rgba(0,212,255,0.6)); }
     }
     .ds-lbl { 
+      flex: 1;
       font-size: clamp(14px,1.7vmin,22px); 
       font-weight: 700; 
       color: rgba(255,255,255,0.95); 
+      text-transform: uppercase;
       line-height: 1.25; 
       text-align: left;
+      white-space: nowrap;
     }
 
     /* ═══════════════════════════════════
@@ -917,31 +932,108 @@
     .v-arrow.in { opacity: 1; }
     .v-arrow svg { width: clamp(30px,5vmin,60px); height: clamp(80px,12vmin,150px); }
 
+    .policy-risk-rules {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(6px,0.8vh,10px);
+      margin-top: clamp(0px, 0.4vh, 10px);
+      margin-bottom: clamp(4px,0.6vh,8px);
+      position: relative;
+    }
+    .policy-risk-rules::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: calc(100% + clamp(18px, 2vh, 26px));
+      transform: translateX(-50%);
+      width: clamp(4px, 0.35vmin, 6px);
+      height: clamp(34px, 4.6vmin, 46px);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 10px rgba(255,255,255,0.18);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .policy-risk-rules::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: calc(100% + clamp(52px, 6.6vmin, 72px));
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgba(255,255,255,0.95);
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+      pointer-events: none;
+      z-index: 2;
+    }
+    .prr-wrap {
+      width: clamp(60px,8vmin,100px);
+      height: clamp(60px,8vmin,100px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .prr-icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .prr-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 14px rgba(191,90,242,0.3));
+    }
+    .prr-lbl {
+      font-size: clamp(11px,1.3vmin,18px);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.5px;
+      text-align: center;
+      line-height: 1.25;
+    }
+
     /* ── Vertical upward arrow (gauge → decision) ── */
     .v-arrow-up {
       display: flex;
-      align-items: stretch; /* Stretch the CSS line vertically */
+      align-items: center;
       justify-content: center;
       opacity: 0;
       transition: opacity 0.5s ease;
-      flex: 1; /* fill the gap */
-      min-height: 0; /* CRITICAL: prevents intrinsic SVG size from blowing up layout */
-      padding: 10px 0;
+      flex: 0 0 clamp(44px, 5.4vmin, 60px);
+      min-height: clamp(44px, 5.4vmin, 60px);
+      margin-top: clamp(40px, 4.2vh, 54px);
+      padding: 0;
     }
     .v-arrow-up.in { opacity: 1; }
     
     /* Dynamic line with absolute fixed arrowhead */
     .css-arrow-up {
-      width: 6px;
+      width: clamp(4px, 0.35vmin, 6px);
+      height: clamp(26px, 3.4vmin, 34px);
       background-color: rgba(255, 255, 255, 0.9);
       border-radius: 3px;
       position: relative;
     }
     .arrow-head-svg {
       position: absolute;
-      top: -12px;
+      top: -18px;
       left: 50%;
       transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 20px solid rgba(255,255,255,0.95);
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
     }
 
     /* ═══════════════════════════════════
@@ -1019,15 +1111,57 @@
       justify-content: center;
       align-self: stretch;
       gap: clamp(6px,0.8vh,10px);
+      margin-top: clamp(68px, 6.8vh, 96px);
+      margin-bottom: clamp(-40px, -4vh, -20px);
       opacity: 0; transform: scale(0.85);
       transition: all 0.55s ease;
       position: relative;
     }
     .decision-engine.in { opacity: 1; transform: scale(1); }
-
     .de-wrap {
       position: relative;
       width: clamp(60px,8vmin,100px);
+      height: clamp(60px,8vmin,100px);
+    }
+    .de-orb {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .de-orb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 15px rgba(0,212,255,0.4));
+    }
+    .de-tick {
+      position: absolute; top: -8%; right: -14%;
+      width: clamp(24px,3vmin,38px); height: clamp(24px,3vmin,38px);
+      background: #00c853;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: clamp(12px,1.5vmin,20px); font-weight: 900; color: #fff;
+      box-shadow: 0 0 12px rgba(0,200,80,0.7);
+      animation: pulseTick 2s ease infinite;
+    }
+    .de-cross {
+      position: absolute; bottom: -10%; right: -14%;
+      width: clamp(22px,2.6vmin,34px); height: clamp(22px,2.6vmin,34px);
+      background: #ff3355;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: clamp(11px,1.3vmin,18px); font-weight: 900; color: #fff;
+      box-shadow: 0 0 12px rgba(255,51,102,0.6);
+    }
+    @keyframes pulseTick { 0%,100%{box-shadow:0 0 12px rgba(0,200,80,0.7)} 50%{box-shadow:0 0 24px rgba(0,200,80,1)} }
+
+    .de-lbl { 
+      font-size: clamp(11px,1.3vmin,18px); 
+      font-weight: 800; text-transform: uppercase; 
+      color: rgba(255,255,255,0.9); 
+      letter-spacing: 0.5px; 
+      text-align: center;
+      line-height: 1.25;
+    }
       height: clamp(60px,8vmin,100px);
     }
     .de-orb {
@@ -1075,12 +1209,17 @@
        Green border matching image
     ═══════════════════════════════════ */
     .actions-list {
+      grid-column: 7;
+      grid-row: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-self: stretch;
+      gap: clamp(4px, 0.5vh, 8px);
       background: rgba(0,40,20,0.35);
-      padding: clamp(15px, 2vh, 30px) clamp(12px,1.4vw,22px);
+      width: 100%;
+      height: 100%;
+      padding: clamp(14px, 1.6vh, 22px) clamp(8px,0.9vw,14px) clamp(14px, 1.6vh, 22px) clamp(12px,1.1vw,18px);
       border: 2.5px solid rgba(0,255,100,0.6);
       border-radius: 14px;
       box-shadow: 0 0 32px rgba(0,255,100,0.12), inset 0 0 20px rgba(0,100,40,0.06);
@@ -1090,6 +1229,7 @@
       display: flex;
       align-items: center;
       gap: clamp(10px,1.2vw,18px);
+      width: 100%;
       opacity: 0; transform: translateX(14px);
       transition: all 0.45s ease;
     }
@@ -1108,7 +1248,7 @@
       filter: drop-shadow(0 0 12px rgba(0,255,100,0.3));
     }
     .ai-icon-wrap svg { width: 80%; height: 80%; }
-    .ai-lbl { font-size: clamp(14px,1.7vmin,22px); font-weight: 700; color: rgba(255,255,255,0.95); line-height:1.25; }
+    .ai-lbl { flex: 1; font-size: clamp(14px,1.7vmin,22px); font-weight: 700; color: rgba(255,255,255,0.95); text-transform: uppercase; line-height:1.25; }
 
     
     /* Module Headers */
@@ -1133,6 +1273,19 @@
     .mh-gold { color: #ffd700; border-bottom-color: rgba(255,215,0,0.3); }
     .mh-purple { color: var(--purple); border-bottom-color: rgba(191,90,242,0.3); }
     .mh-green { color: #00ff64; border-bottom-color: rgba(0,255,100,0.3); }
+    .data-sources .mod-header,
+    .actions-list .mod-header {
+      margin-bottom: clamp(12px, 1.8vh, 22px);
+      height: 48px;
+      min-height: 48px;
+      padding-bottom: 8px;
+      white-space: nowrap;
+      font-size: clamp(11px, 1.3vmin, 15px);
+      letter-spacing: 0.8px;
+    }
+    .gauge-decision-stack > .mod-header {
+      margin-top: clamp(4px, 0.6vh, 10px);
+    }
 
     
     /* Staggered column entry */
@@ -1360,7 +1513,7 @@
       border-radius:50%; display:flex; align-items:center; justify-content:center;
       font-size: clamp(10px,1.3vmin,14px); font-weight:900; line-height:1;
     }
-    .ico-badge.fail { background:#ff3366; color:#fff; border:1.5px solid var(--bg); }
+    .ico-badge.fail { background:rgba(255,255,255,0.92); color:#ff3366; border:1.5px solid #ff3366; }
     .ico-badge.pass { background:#00ff88; color:#050a14; border:1.5px solid var(--bg); }
 
     .cmp-cell-body { flex:1; min-width:0; }
@@ -1534,7 +1687,7 @@
       
       /* Allow scrolling if content overflows */
       .slide {
-        justify-content: flex-start;
+        justify-content: space-between;
         padding-bottom: 50px;
       }
       
@@ -1600,7 +1753,7 @@
       
       /* Ensure slides are scrollable */
       .slide {
-        justify-content: flex-start;
+        justify-content: space-between;
         padding-top: 20px;
         padding-bottom: 60px;
       }
@@ -1881,8 +2034,6 @@
   <!-- ══ SLIDE 5: ARCHITECTURE ══ -->
   <div class="slide" id="s5">
     <div class="intro-text" id="s5-intro1">How Guardient Works</div>
-    <div class="eyebrow">Architecture</div>
-    <div class="title-lg">How Guardient Works</div>
     
     <div class="arch-container">
       <div class="main-arch">
@@ -1896,7 +2047,7 @@
             <div class="ds-icon-wrap">
               <img src="Network.png" alt="Network">
             </div>
-            <span class="ds-lbl">Network<br>Traffic</span>
+            <span class="ds-lbl">Network Traffic</span>
           </div>
 
           <!-- Cloud Activity — thick cloud + document -->
@@ -1904,7 +2055,7 @@
             <div class="ds-icon-wrap">
               <img src="Cloud.png" alt="Cloud">
             </div>
-            <span class="ds-lbl">Cloud<br>Activity</span>
+            <span class="ds-lbl">Cloud Activity</span>
           </div>
 
           <!-- Virtualization Layer — two VM boxes stacked -->
@@ -1920,7 +2071,7 @@
             <div class="ds-icon-wrap">
               <img src="Identity.png" alt="Identity">
             </div>
-            <span class="ds-lbl">Identity<br>Logs</span>
+            <span class="ds-lbl">Identity Logs</span>
           </div>
 
           <!-- Temporal Data — grid/calendar -->
@@ -1928,16 +2079,16 @@
             <div class="ds-icon-wrap">
               <img src="Temporal.png" alt="Temporal">
             </div>
-            <span class="ds-lbl">Temporal<br>Data</span>
+            <span class="ds-lbl">Temporal Data</span>
           </div>
 
         </div>
 
         <!-- ══ Col 2: Arrow DS → Pipeline (single arrow from Network Traffic to Normalize+Enrich) ══ -->
-        <div class="arch-arrow" id="cp1">
-          <svg viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0" y1="12" x2="82" y2="12" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round"/>
-            <polygon points="76,2 100,12 76,22" fill="rgba(255,255,255,0.9)"/>
+                        <div class="arch-arrow" id="cp1">
+          <svg viewBox="0 0 200 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="12" x2="182" y2="12" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round"/>
+            <polygon points="176,2 198,12 176,22" fill="rgba(255,255,255,0.9)"/>
           </svg>
         </div>
 
@@ -1962,9 +2113,9 @@
 
         <!-- ══ Col 4: Arrow Pipeline → Trust ══ -->
         <div class="arch-arrow" id="cp2">
-          <svg viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0" y1="12" x2="82" y2="12" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round"/>
-            <polygon points="76,2 100,12 76,22" fill="rgba(255,255,255,0.9)"/>
+          <svg viewBox="0 0 200 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="12" x2="182" y2="12" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round"/>
+            <polygon points="176,2 198,12 176,22" fill="rgba(255,255,255,0.9)"/>
           </svg>
         </div>
 
@@ -1973,6 +2124,13 @@
         <!-- ══ Col 7: Gauge + Decision stacked ══ -->
         <div class="gauge-decision-stack">
           <div class="mod-header mh-cyan" style="color:var(--cyan) !important;">3. TrustScore Engine</div>
+
+          <div class="policy-risk-rules" id="prr">
+            <div class="prr-wrap">
+              <div class="prr-icon"><img src="Policy.png" alt="Policy &amp; Risk Rules"></div>
+            </div>
+            <div class="prr-lbl">Policy &amp;<br>Risk Rules</div>
+          </div>
 
           <!-- Decision Engine (top) -->
           <div class="decision-engine" id="de">
@@ -1985,9 +2143,7 @@
           <!-- Upward arrow (gauge → decision) -->
           <div class="v-arrow-up" id="cp3">
             <div class="css-arrow-up">
-              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-head-svg">
-                <polygon points="4,20 12,4 20,20" fill="rgba(255,255,255,0.9)" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <div class="arrow-head-svg"></div>
             </div>
           </div>
 
@@ -2017,9 +2173,15 @@
 
         <!-- ══ Col 6: Arrow Decision → Actions ══ -->
         <div class="arch-arrow" id="cp4">
-          <svg viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0" y1="12" x2="82" y2="12" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round"/>
-            <polygon points="76,2 100,12 76,22" fill="rgba(255,255,255,0.9)"/>
+          <svg viewBox="0 0 200 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="12" x2="182" y2="12" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round"/>
+            <polygon points="176,2 198,12 176,22" fill="rgba(255,255,255,0.9)"/>
+          </svg>
+        </div>
+        <div class="arch-arrow" id="cp5">
+          <svg viewBox="0 0 200 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="12" x2="182" y2="12" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round"/>
+            <polygon points="176,2 198,12 176,22" fill="rgba(255,255,255,0.9)"/>
           </svg>
         </div>
 
@@ -2395,7 +2557,7 @@
             <div class="cmp-cell-body">
               <div class="cmp-cell-main g-main">AMT / BMC / IPMI telemetry</div>
               <div class="mini-shield" style="color:rgba(0,212,255,0.6)">
-                <svg width="9" height="10" viewBox="0 0 9 10"><path d="M4.5 1L1 2.5v3C1 7.5 4.5 9 4.5 9S8 7.5 8 5.5v-3L4.5 1Z" stroke="rgba(0,212,255,0.6)" stroke-width="1" fill="rgba(0,212,255,0.1)"/><path d="M2.8 5l1.4 1.4L6.5 4" stroke="#00d4ff" stroke-width="0.9" stroke-linecap="round"/></svg>
+                <svg width="9" height="10" viewBox="0 0 9 10"><path d="M4.5 1L1 2.5v3C1 7.5 4.5 9 4.5 9S8 7.5 8 5.5v-3L4.5 1Z" stroke="rgba(0,212,255,0.6)" stroke-width="1" fill="rgba(0,212,255,0.1)"/><path d="M2.8 5l1.4 1.4L6.5 4" stroke="#00ff88" stroke-width="0.9" stroke-linecap="round"/></svg>
                 OOB ACTIVE
               </div>
             </div>
@@ -2409,7 +2571,7 @@
                 <line x1="7" y1="20" x2="15" y2="20" stroke="rgba(0,255,136,0.3)" stroke-width="1.5" stroke-linecap="round"/>
                 <line x1="11" y1="15" x2="11" y2="20" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
                 <rect x="6" y="6" width="10" height="6" rx="1" stroke="rgba(0,212,255,0.5)" stroke-width="1" stroke-dasharray="2 1.5"/>
-                <path d="M9 9l1.5 1.5L13 8" stroke="#00d4ff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 9l1.5 1.5L13 8" stroke="#00ff88" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               <span class="ico-badge pass">✓</span>
             </div>
@@ -2765,28 +2927,30 @@
 
 
 
-    // 5. Module 3: Trust Score Engine appears
+    // 5. Module 3 column appears
     setTimeout(() => { if(m4) m4.classList.add('in'); }, 5600);
+    setTimeout(() => { const el = document.getElementById('cp2'); if(el) el.classList.add('in'); }, 5900);
+
+    // Gauge first
     setTimeout(() => {
       const tse = document.getElementById('tse');
       if(tse) tse.classList.add('in');
       const gn = document.getElementById('gn');
       if(gn) gn.style.transform = 'translateX(-50%) rotate(45deg)';
-    }, 6000);
-    
-    // Trust → Decision Arrow (vertical)
-    setTimeout(() => { const el = document.getElementById('cp3'); if(el) el.classList.add('in'); }, 6500);
+    }, 6200);
 
-    // Decision Engine
-    setTimeout(() => { const el = document.getElementById('de'); if(el) el.classList.add('in'); }, 7000);
+    // Then decision
+    setTimeout(() => { const el = document.getElementById('cp3'); if(el) el.classList.add('in'); }, 6700);
+    setTimeout(() => { const el = document.getElementById('de'); if(el) el.classList.add('in'); }, 7100);
 
-    // Decision → Actions Arrow
-    setTimeout(() => { const el = document.getElementById('cp4'); if(el) el.classList.add('in'); }, 7500);
+    // Then policy
+    setTimeout(() => { if(m3) m3.classList.add('in'); }, 7600);
 
-    // 6. Module 4: Response Engine appears
-    setTimeout(() => { if(m5) m5.classList.add('in'); }, 8000);
+    // Then right box
+    setTimeout(() => { ['cp4','cp5'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.add('in'); }); }, 8050);
+    setTimeout(() => { if(m5) m5.classList.add('in'); }, 8450);
     ['ai1','ai2','ai3','ai4','ai5'].forEach((id,i) =>
-      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 8400));
+      setTimeout(() => { const el = document.getElementById(id); if(el) el.classList.add('in'); }, i*150 + 8850));
   }
   function resetPipeline() {
     ['s5-intro1'].forEach(id => {
@@ -2808,6 +2972,7 @@
     if(container) container.classList.remove('in');
     if(m1) m1.classList.remove('in');
     if(m2) m2.classList.remove('in');
+    if(m3) m3.classList.remove('in');
     if(m4) m4.classList.remove('in');
     if(m5) m5.classList.remove('in');
 
